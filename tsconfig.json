@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "strictNullChecks": true,
+    "module": "CommonJS",
+    "target": "ES2017",
+    "noImplicitAny": true,
+    "sourceMap": true,
+    "declaration": true,
+    "incremental": true,
+
+  },
+  "include": ["./**/*"]
+}
