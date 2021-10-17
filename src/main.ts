@@ -21,6 +21,7 @@ rl.question("Bitte geben sie ihre Zahlen ein: ",  (answer:String) => {
         console.error(e)
     }
 
+    rl.close()
 });
 
 const validate = (consoleInput: String) => {
