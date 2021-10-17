@@ -1,5 +1,6 @@
 import {getMedian} from "./getMedian"
 import {getAverage} from "./getAverage"
+import { hasUncaughtExceptionCaptureCallback } from "process";
 
 const readline = require("readline");
 
@@ -9,17 +10,33 @@ const rl = readline.createInterface({
 });
 
 rl.question("Bitte geben sie ihre Zahlen ein: ",  (answer:String) => {
-    const numberArray: number[] = validate(answer)
+    try {
+        const numberArray: number[] = validate(answer)
 
-    console.log(`Der Mittelwert ist ${getAverage(numberArray)}`)
-    console.log(`Der Median ist ${getMedian(numberArray)}`)
+        console.log(`Der Mittelwert ist ${getAverage(numberArray)}`)
+        console.log(`Der Median ist ${getMedian(numberArray)}`)
+    }
 
-    return
+    catch(e) {
+        console.error(e)
+    }
+
 });
 
 const validate = (consoleInput: String) => {
 
-    const numberArray: number[] = consoleInput.split(",").map(it => parseInt(it))
+    if(consoleInput === "")
+        throw "Es muss eine Eingabe erfolgen"
 
-    return numberArray
+    return consoleInput.split(",").map(it => it.trim()).map((it) => {
+
+            if(isNaN(parseInt(it)))
+                throw "Es sind nur Ganzzahlen erlaubt"
+
+            if(parseInt(it) !== parseFloat(it))
+                throw "Komma seperierte Werte sind nicht erlaubt"
+
+            return parseInt(it)
+        }
+    )
 }
